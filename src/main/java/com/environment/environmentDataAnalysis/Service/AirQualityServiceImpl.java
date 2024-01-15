@@ -10,12 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class AirQualityServiceImpl implements AirQualityService {
-    private AirQualityRepository airQualityRepository;
+    private final AirQualityRepository airQualityRepository;
 
     //get all the air quality records and using the stream api to map all the records
     // and return them as a list
@@ -25,8 +26,28 @@ public class AirQualityServiceImpl implements AirQualityService {
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
+    //getting our air quality record by id
+    @Override
+    public AirQualityDTO getAirQualityById(Long id) {
+        AirQuality airQuality = airQualityRepository.findById(id).
+                orElseThrow(()->new RuntimeException("The requested air quality is not found"));
+        return converttoDTO(airQuality);
+
+    }
+
+    //Adding a new air quality record
+    public AirQualityDTO addAirQualityRecord(AirQualityDTO airQualityDTO)
+    {
+        AirQuality airQuality = convertToEntity(airQualityDTO);
+        AirQuality appendedAirQuality = airQualityRepository.save(airQuality);
+        return converttoDTO(appendedAirQuality);
+    }
+    /*
+    Helper Methods
+     */
+
     //Using a helper method to get the details from entity to the dto class and then displaying
-    private AirQualityDTO converttoDTO(AirQuality airQuality)
+    public AirQualityDTO converttoDTO(AirQuality airQuality)
     {
         return new AirQualityDTO(
                 airQuality.getLocation(),
@@ -37,5 +58,20 @@ public class AirQualityServiceImpl implements AirQualityService {
                 airQuality.getO3()
         );
     }
+
+    //Helper class for converting an DTO to an entity for updating the data while getting from the frontend
+    public AirQuality convertToEntity(AirQualityDTO airQualityDTO)
+    {
+        AirQuality airQuality = new AirQuality();
+        airQuality.setLocation(airQualityDTO.getLocation());
+        airQuality.setDateTime(airQualityDTO.getDateTime());
+        airQuality.setPm2_5(airQualityDTO.getPm2_5());
+        airQuality.setPm10(airQualityDTO.getPm10());
+        airQuality.setNo2(airQualityDTO.getNo2());
+        airQuality.setO3(airQualityDTO.getO3());
+        return airQuality;
+    }
+
+
 
 }

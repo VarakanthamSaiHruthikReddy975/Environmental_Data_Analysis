@@ -36,7 +36,7 @@ public class AirQualityController {
     }
 
     //adding an record into the air quality table
-    @PostMapping
+    @PostMapping("/addRecord")
     public ResponseEntity<AirQualityDTO> addAirQualityRecord(AirQualityDTO airQualityDTO){
         AirQualityDTO addAQRecord = airQualityService.addAirQualityRecord(airQualityDTO);
         return ResponseEntity.ok(addAQRecord);

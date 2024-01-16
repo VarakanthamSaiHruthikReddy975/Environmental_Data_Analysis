@@ -2,6 +2,9 @@ package com.environment.environmentDataAnalysis.Entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,21 +21,28 @@ public class AirQuality {
     private Long id;
 
     @Column(nullable = false)
+    @Size(min = 2, max = 100)
     private String location;
 
     @Column(name = "date_time", nullable = false)
     private LocalDateTime dateTime;
 
     @Column(nullable = false)
+    @Min(0)
     private Double pm2_5;
 
     @Column(nullable = false)
+    @Min(0)
     private Double pm10;
 
     @Column(nullable = false)
+    @Min(0)
+    @Max(100)
     private Double no2;
 
     @Column(nullable = false)
+    @Min(0)
+    @Max(500)
     private Double o3;
 
     public Long getId() {

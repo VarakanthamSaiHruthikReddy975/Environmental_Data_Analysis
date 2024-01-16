@@ -68,7 +68,7 @@ public class AirQualityDTO {
         this.location = location;
     }
 
-    public @NotNull Data getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 

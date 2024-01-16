@@ -43,4 +43,73 @@ public class WaterQualityDTO {
     @Min(0)
     @Max(35)
     private Double temperature;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public Double getPh() {
+        return ph;
+    }
+
+    public void setPh(Double ph) {
+        this.ph = ph;
+    }
+
+    public Double getTurbidity() {
+        return turbidity;
+    }
+
+    public void setTurbidity(Double turbidity) {
+        this.turbidity = turbidity;
+    }
+
+    public Double getDissolvedOxygen() {
+        return dissolvedOxygen;
+    }
+
+    public void setDissolvedOxygen(Double dissolvedOxygen) {
+        this.dissolvedOxygen = dissolvedOxygen;
+    }
+
+    public Double getConductivity() {
+        return conductivity;
+    }
+
+    public void setConductivity(Double conductivity) {
+        this.conductivity = conductivity;
+    }
+
+    public Double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
+    }
+
+    public WaterQualityDTO(String location, LocalDateTime dateTime, Double ph, Double turbidity, Double dissolvedOxygen, Double conductivity, Double temperature) {
+        this.location = location;
+        this.dateTime = dateTime;
+        this.ph = ph;
+        this.turbidity = turbidity;
+        this.dissolvedOxygen = dissolvedOxygen;
+        this.conductivity = conductivity;
+        this.temperature = temperature;
+    }
+
+    public WaterQualityDTO() {
+    }
 }

@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -55,6 +54,7 @@ public class AirQualityDTO {
     }
 
     public AirQualityDTO() {
+
     }
 
     public AirQualityDTO(String location, LocalDateTime dateTime, Double pm2_5, Double pm10, Double no2, Double o3) {
@@ -68,7 +68,7 @@ public class AirQualityDTO {
         this.location = location;
     }
 
-    public LocalDateTime getDateTime() {
+    public @NotNull Data getDateTime() {
         return dateTime;
     }
 

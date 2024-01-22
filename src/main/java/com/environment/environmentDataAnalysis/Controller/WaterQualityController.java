@@ -6,27 +6,30 @@ import com.environment.environmentDataAnalysis.ServiceInterface.WaterQualityServ
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/waterquality")
 public class WaterQualityController {
     private final WaterQualityService waterQualityService;
 
+    @GetMapping("/allRecords")
     public ResponseEntity<List<WaterQualityDTO>> getAllWaterQualityRecords(){
 
         List<WaterQualityDTO> getAllRecords = (List<WaterQualityDTO>) waterQualityService.getAllRecords();
         return ResponseEntity.ok(getAllRecords);
     }
 
-    public ResponseEntity<WaterQualityDTO> getWaterQualityById(Long Id){
-        WaterQualityDTO waterQualityDTO = waterQualityService.getById(Id);
+    @GetMapping("/{id}")
+    public ResponseEntity<WaterQualityDTO> getWaterQualityById(@PathVariable Long Id){
+        WaterQualityDTO waterQualityDTO = waterQualityService.getByWaterId(Id);
         return ResponseEntity.ok(waterQualityDTO);
     }
 
+    @PostMapping("/addRecord")
     public ResponseEntity<WaterQualityDTO> addWaterQualityRecord(@RequestBody WaterQualityDTO waterQualityDTO)
     {
         WaterQualityDTO waterQualityDTO1 = waterQualityService.addAirQualityRecord(waterQualityDTO);

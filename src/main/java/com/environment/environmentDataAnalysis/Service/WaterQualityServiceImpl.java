@@ -25,8 +25,8 @@ public class WaterQualityServiceImpl implements WaterQualityService {
         return new ResponseEntity<>(waterQualityRepository.findAll().stream().map(this::convertToDTO1).collect(Collectors.toList()), HttpStatus.OK);
     }
     //getting the water quality record by id
-    public WaterQualityDTO getById(Long id){
-        WaterQuality waterQuality = waterQualityRepository.findById(id).orElseThrow(()->new RuntimeException("Please enter the valid id"));
+    public WaterQualityDTO getByWaterId(Long id){
+        WaterQuality waterQuality = waterQualityRepository.findById(id).orElseThrow(()->new RuntimeException("Please enter the valid water id"));
         return convertToDTO1(waterQuality);
     }
     public WaterQualityDTO addAirQualityRecord(WaterQualityDTO waterQualityDTO)

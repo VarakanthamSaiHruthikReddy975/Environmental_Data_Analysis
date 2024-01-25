@@ -16,8 +16,7 @@ public class AirQualityDTO {
     @Size(min = 2, max = 100)
     private String location;
 
-    @NotNull
-    private Data dateTime;
+    private LocalDateTime dateTime;
 
     //Represents the concentrate of particulate matter that is less than
     // or equal to 2.5 mm in diameter
@@ -44,7 +43,7 @@ public class AirQualityDTO {
     @Max(500)
     private Double o3;
 
-    public AirQualityDTO(String location, Data dateTime, Double pm2_5, Double pm10, Double no2, Double o3) {
+    public AirQualityDTO(String location, LocalDateTime dateTime, Double pm2_5, Double pm10, Double no2, Double o3) {
         this.location = location;
         this.dateTime = dateTime;
         this.pm2_5 = pm2_5;
@@ -68,11 +67,11 @@ public class AirQualityDTO {
         this.location = location;
     }
 
-    public @NotNull Data getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Data dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 

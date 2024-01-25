@@ -1,6 +1,7 @@
 package com.environment.environmentDataAnalysis.Service;
 
 import com.environment.environmentDataAnalysis.DTO.AirQualityDTO;
+import com.environment.environmentDataAnalysis.DataGenerator.AirQualityDataGenerator;
 import com.environment.environmentDataAnalysis.Entity.AirQuality;
 import com.environment.environmentDataAnalysis.Repository.AirQualityRepository;
 import com.environment.environmentDataAnalysis.ServiceInterface.AirQualityService;
@@ -17,6 +18,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AirQualityServiceImpl implements AirQualityService {
     private final AirQualityRepository airQualityRepository;
+
+    //generate dummy data using the data generator class of DAta Generator package
+    public List<AirQuality> generateAndSaveAirQualityData(Long numberOfRecords){
+        List<AirQuality> generatedData = AirQualityDataGenerator.generateAirQualityData(numberOfRecords);
+        return airQualityRepository.saveAll(generatedData);
+    }
 
     //get all the air quality records and using the stream api to map all the records
     // and return them as a list

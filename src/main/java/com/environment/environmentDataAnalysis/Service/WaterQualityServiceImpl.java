@@ -1,6 +1,7 @@
 package com.environment.environmentDataAnalysis.Service;
 
 import com.environment.environmentDataAnalysis.DTO.WaterQualityDTO;
+import com.environment.environmentDataAnalysis.DataGenerator.WaterQualityDataGenerator;
 import com.environment.environmentDataAnalysis.Entity.WaterQuality;
 import com.environment.environmentDataAnalysis.Repository.WaterQualityRepository;
 import com.environment.environmentDataAnalysis.ServiceInterface.WaterQualityService;
@@ -18,6 +19,11 @@ public class WaterQualityServiceImpl implements WaterQualityService {
 
     private final WaterQualityRepository waterQualityRepository;
 
+    public List<WaterQuality> generateAndSaveWaterQualityData(Long numberOfRecords){
+        List<WaterQuality> generateWaterQualityData = WaterQualityDataGenerator.generateWaterQualityData(numberOfRecords);
+        return waterQualityRepository.saveAll(generateWaterQualityData);
+    }
+
     //getting all the water quality records
 
     public ResponseEntity<List<WaterQualityDTO>> getAllRecords()
@@ -29,7 +35,7 @@ public class WaterQualityServiceImpl implements WaterQualityService {
         WaterQuality waterQuality = waterQualityRepository.findById(id).orElseThrow(()->new RuntimeException("Please enter the valid water id"));
         return convertToDTO1(waterQuality);
     }
-    public WaterQualityDTO addAirQualityRecord(WaterQualityDTO waterQualityDTO)
+    public WaterQualityDTO addWaterQualityRecord(WaterQualityDTO waterQualityDTO)
     {
         WaterQuality waterQuality = convertToEntity1(waterQualityDTO);
         WaterQuality appendedWaterQuality = waterQualityRepository.save(waterQuality);

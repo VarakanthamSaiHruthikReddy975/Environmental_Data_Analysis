@@ -2,6 +2,7 @@ package com.environment.environmentDataAnalysis.Controller;
 
 import com.environment.environmentDataAnalysis.DTO.AirQualityDTO;
 import com.environment.environmentDataAnalysis.Entity.AirQuality;
+import com.environment.environmentDataAnalysis.Repository.AirQualityRepository;
 import com.environment.environmentDataAnalysis.ServiceInterface.AirQualityService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,6 @@ import java.util.List;
 @RequestMapping("/api/air-quality")
 public class AirQualityController {
     private final AirQualityService airQualityService;
-
 
     //getting all the air quality records
     @GetMapping("/allRecords")
@@ -37,6 +37,13 @@ public class AirQualityController {
     public ResponseEntity<AirQualityDTO> addAirQualityRecord(@RequestBody AirQualityDTO airQualityDTO){
         AirQualityDTO addAQRecord = airQualityService.addAirQualityRecord(airQualityDTO);
         return ResponseEntity.ok(addAQRecord);
+    }
+
+    //adding generated dummy data
+    @PostMapping("/generateDummyDataAQ/{numberOfRecords}")
+    public ResponseEntity<List<AirQuality>> generateAirQualityData(@PathVariable Long numberOfRecords){
+        List<AirQuality> generatedData = airQualityService.generateAndSaveAirQualityData(numberOfRecords);
+        return ResponseEntity.ok(generatedData);
     }
 
 }

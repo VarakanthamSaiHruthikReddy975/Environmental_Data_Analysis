@@ -4,7 +4,6 @@ import com.environment.environmentDataAnalysis.DTO.WaterQualityDTO;
 import com.environment.environmentDataAnalysis.Entity.WaterQuality;
 import com.environment.environmentDataAnalysis.ServiceInterface.WaterQualityService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +31,14 @@ public class WaterQualityController {
     @PostMapping("/addRecord")
     public ResponseEntity<WaterQualityDTO> addWaterQualityRecord(@RequestBody WaterQualityDTO waterQualityDTO)
     {
-        WaterQualityDTO waterQualityDTO1 = waterQualityService.addAirQualityRecord(waterQualityDTO);
+        WaterQualityDTO waterQualityDTO1 = waterQualityService.addWaterQualityRecord(waterQualityDTO);
         return ResponseEntity.ok(waterQualityDTO1);
+    }
+
+    @PostMapping("/generateDummyDataWQ/{numberOfRecords}")
+    public ResponseEntity<List<WaterQuality>> generateWaterQualityData(@PathVariable Long numberOfRecords){
+        List<WaterQuality> generatedData = waterQualityService.generateAndSaveWaterQualityData(numberOfRecords);
+        return ResponseEntity.ok(generatedData);
     }
 
 }

@@ -20,4 +20,7 @@ public interface AirQualityService {
     public AirQualityDTO converttoDTO(AirQuality airQuality);
 
     public AirQuality convertToEntity(AirQualityDTO airQualityDTO);
+
+    public List<AirQuality> generateAndSaveAirQualityData(Long numberOfRecords);
+
 }

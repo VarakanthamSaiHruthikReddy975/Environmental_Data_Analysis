@@ -3,6 +3,7 @@ package com.environment.environmentDataAnalysis.Service;
 import com.environment.environmentDataAnalysis.DTO.WeatherDTO;
 import com.environment.environmentDataAnalysis.Entity.Weather;
 import com.environment.environmentDataAnalysis.Repository.WeatherRepository;
+import com.environment.environmentDataAnalysis.ServiceInterface.WeatherService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class WeatherServiceImpl {
+public class WeatherServiceImpl implements WeatherService {
 
     private final WeatherRepository weatherRepository;
     public WeatherDTO getByWeatherId(Long id){
@@ -53,6 +54,5 @@ public class WeatherServiceImpl {
                 weather.getWindSpeed(),
                 weather.getRainFall()
         );
-
     }
 }

@@ -56,8 +56,7 @@ public class AirQualityDTO {
 
     }
 
-    public AirQualityDTO(String location, LocalDateTime dateTime, Double pm2_5, Double pm10, Double no2, Double o3) {
-    }
+
 
     public String getLocation() {
         return location;

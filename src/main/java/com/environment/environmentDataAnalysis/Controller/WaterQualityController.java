@@ -17,7 +17,6 @@ public class WaterQualityController {
 
     @GetMapping("/allRecords")
     public ResponseEntity<List<WaterQualityDTO>> getAllWaterQualityRecords(){
-
         List<WaterQualityDTO> getAllRecords = (List<WaterQualityDTO>) waterQualityService.getAllRecords();
         return ResponseEntity.ok(getAllRecords);
     }

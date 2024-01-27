@@ -124,6 +124,17 @@ public class WaterQuality {
         return id.equals(that.id) && location.equals(that.location) && dateTime.equals(that.dateTime) && ph.equals(that.ph) && turbidity.equals(that.turbidity) && dissolvedOxygen.equals(that.dissolvedOxygen) && Conductivity.equals(that.Conductivity) && temperature.equals(that.temperature);
     }
 
+    public WaterQuality(Long id, String location, LocalDateTime dateTime, Double ph, Double turbidity, Double dissolvedOxygen, Double conductivity, Double temperature) {
+        this.id = id;
+        this.location = location;
+        this.dateTime = dateTime;
+        this.ph = ph;
+        this.turbidity = turbidity;
+        this.dissolvedOxygen = dissolvedOxygen;
+        Conductivity = conductivity;
+        this.temperature = temperature;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, location, dateTime, ph, turbidity, dissolvedOxygen, Conductivity, temperature);

@@ -10,5 +10,4 @@ public class EnvironmentDataAnalysisApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EnvironmentDataAnalysisApplication.class, args);
 	}
-
 }

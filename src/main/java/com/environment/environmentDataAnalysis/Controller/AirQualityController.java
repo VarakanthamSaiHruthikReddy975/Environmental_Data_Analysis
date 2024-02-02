@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/air-quality")
+@CrossOrigin(origins = "http://localhost:4200/AirQuality")
 public class AirQualityController {
     private final AirQualityService airQualityService;
 

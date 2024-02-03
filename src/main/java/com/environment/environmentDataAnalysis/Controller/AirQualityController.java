@@ -5,6 +5,7 @@ import com.environment.environmentDataAnalysis.Entity.AirQuality;
 import com.environment.environmentDataAnalysis.Repository.AirQualityRepository;
 import com.environment.environmentDataAnalysis.ServiceInterface.AirQualityService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,17 +13,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/air-quality")
-@CrossOrigin(origins = "http://localhost:4200/AirQuality")
+//@CrossOrigin(origins = "http://localhost:4200/AirQuality")
 public class AirQualityController {
-    private final AirQualityService airQualityService;
+    @Autowired
+    AirQualityService airQualityService;
 
     //getting all the air quality records
     @GetMapping("/allRecords")
     public ResponseEntity<List<AirQualityDTO>> getAllAirQualityRecords()
     {
-        List<AirQualityDTO> getAllRecords = (List<AirQualityDTO>) airQualityService.getAllAirQualityRecords();
+        List<AirQualityDTO> getAllRecords = airQualityService.getAllAirQualityRecords();
+        if (getAllRecords == null || getAllRecords.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(getAllRecords);
     }
 

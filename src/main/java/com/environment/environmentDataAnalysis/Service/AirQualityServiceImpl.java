@@ -5,19 +5,17 @@ import com.environment.environmentDataAnalysis.DataGenerator.AirQualityDataGener
 import com.environment.environmentDataAnalysis.Entity.AirQuality;
 import com.environment.environmentDataAnalysis.Repository.AirQualityRepository;
 import com.environment.environmentDataAnalysis.ServiceInterface.AirQualityService;
-import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class AirQualityServiceImpl implements AirQualityService {
-    private final AirQualityRepository airQualityRepository;
+
+    @Autowired
+    AirQualityRepository airQualityRepository;
 
     //generate dummy data using the data generator class of DAta Generator package
     public List<AirQuality> generateAndSaveAirQualityData(Long numberOfRecords){
@@ -27,10 +25,10 @@ public class AirQualityServiceImpl implements AirQualityService {
 
     //get all the air quality records and using the stream api to map all the records
     // and return them as a list
-    public ResponseEntity<List<AirQualityDTO>> getAllAirQualityRecords(){
-        return new ResponseEntity<>(airQualityRepository.findAll().stream()
+    public List<AirQualityDTO> getAllAirQualityRecords(){
+        return airQualityRepository.findAll().stream()
                 .map(this::converttoDTO)
-                .collect(Collectors.toList()), HttpStatus.OK);
+                .collect(Collectors.toList());
     }
 
     //getting our air quality record by id

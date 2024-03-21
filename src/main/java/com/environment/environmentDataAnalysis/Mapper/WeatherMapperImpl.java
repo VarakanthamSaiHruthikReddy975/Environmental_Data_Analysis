@@ -3,7 +3,9 @@ package com.environment.environmentDataAnalysis.Mapper;
 import com.environment.environmentDataAnalysis.DTO.WeatherDTO;
 import com.environment.environmentDataAnalysis.Entity.Weather;
 import com.environment.environmentDataAnalysis.MapperInterface.WeatherMapper;
+import org.springframework.stereotype.Service;
 
+@Service
 public class WeatherMapperImpl implements WeatherMapper {
 
 

@@ -2,8 +2,11 @@ package com.environment.environmentDataAnalysis.Mapper;
 
 import com.environment.environmentDataAnalysis.DTO.WaterQualityDTO;
 import com.environment.environmentDataAnalysis.Entity.WaterQuality;
+import com.environment.environmentDataAnalysis.MapperInterface.WaterQualityMapper;
+import org.springframework.stereotype.Service;
 
-public class WaterQualityMapperImpl {
+@Service
+public class WaterQualityMapperImpl implements WaterQualityMapper {
 
     public WaterQualityDTO entityToDTO(WaterQuality waterQuality){
         return waterQuality == null?null : WaterQualityDTO.builder()

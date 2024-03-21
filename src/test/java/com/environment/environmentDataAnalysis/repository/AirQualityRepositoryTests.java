@@ -94,28 +94,28 @@ public class AirQualityRepositoryTests {
 
 
         airQualityRepository.save(airQuality1);
-        AirQuality AirQualityAllRecords = airQualityRepository.findById(airQuality1.getId()).get();
+        AirQuality AirQualityRecordById = airQualityRepository.findById(airQuality1.getId()).get();
 
-        Assertions.assertThat(AirQualityAllRecords).isNotNull();
+        Assertions.assertThat(AirQualityRecordById).isNotNull();
     }
 
     // checking if correct number of records are generated or not
     @Test
     public void whenGenerateAirQualityData_thenCorrectNumberOfRecordsGenerated() {
         Long numberOfRecords = 10L; // Example number of records to generate
-        List<AirQuality> generatedData = AirQualityDataGenerator.generateAirQualityData(numberOfRecords);
+        List<AirQuality> generatedAirQualityData = AirQualityDataGenerator.generateAirQualityData(numberOfRecords);
 
         // Assert that the list size matches the requested number of records
-        assertEquals(numberOfRecords.intValue(), generatedData.size());
+        assertEquals(numberOfRecords.intValue(), generatedAirQualityData.size());
     }
 
     @Test
     public void whenGenerateAirQualityData_thenFieldsAreWithinExpectedRanges() {
         Long numberOfRecords = 5L; // Smaller number for simplicity
-        List<AirQuality> generatedData = AirQualityDataGenerator.generateAirQualityData(numberOfRecords);
+        List<AirQuality> generatedAirQualityData = AirQualityDataGenerator.generateAirQualityData(numberOfRecords);
 
         // Iterate over each record and assert that fields are within expected ranges
-        for (AirQuality record : generatedData) {
+        for (AirQuality record : generatedAirQualityData) {
             assertNotNull(record.getLocation());
             assertNotNull(record.getDateTime());
             assertTrue(record.getPm2_5() >= 0 && record.getPm2_5() <= 100);

@@ -21,5 +21,7 @@ public interface AirQualityService {
     public AirQuality convertToEntity(AirQualityDTO airQualityDTO);
 
     public List<AirQuality> generateAndSaveAirQualityData(Long numberOfRecords);
+    public AirQualityDTO getAirQualityByLocation(String location);
 
+    public AirQuality updateAirQualityUsingId(Long Id, AirQuality airQualityUpdated);
 }

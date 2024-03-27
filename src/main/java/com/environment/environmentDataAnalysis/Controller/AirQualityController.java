@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +38,13 @@ public class AirQualityController {
         return ResponseEntity.ok(airQualityDTO);
     }
 
+    //find air quality by location
+    @GetMapping("/{location}")
+    public ResponseEntity<AirQualityDTO> getAirQualityByLocation(@PathVariable String location){
+        AirQualityDTO airQualityDTO = airQualityService.getAirQualityByLocation(location);
+        return ResponseEntity.ok(airQualityDTO);
+    }
+
     //adding an record into the air quality table
     @PostMapping("/addRecord")
     public ResponseEntity<AirQualityDTO> addAirQualityRecord(@RequestBody AirQualityDTO airQualityDTO){
@@ -51,4 +59,9 @@ public class AirQualityController {
         return ResponseEntity.ok(generatedData);
     }
 
+    @PutMapping("/{Id}")
+    public ResponseEntity<AirQuality> updateAirQualityUsingId(@PathVariable Long Id, AirQuality airQualityUpdated){
+        AirQuality airQuality = airQualityService.updateAirQualityUsingId(Id, airQualityUpdated);
+        return ResponseEntity.ok(airQuality);
+    }
 }

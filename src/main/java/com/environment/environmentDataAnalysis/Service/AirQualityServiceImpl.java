@@ -6,9 +6,11 @@ import com.environment.environmentDataAnalysis.Entity.AirQuality;
 import com.environment.environmentDataAnalysis.Repository.AirQualityRepository;
 import com.environment.environmentDataAnalysis.ServiceInterface.AirQualityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +18,13 @@ public class AirQualityServiceImpl implements AirQualityService {
 
     @Autowired
     AirQualityRepository airQualityRepository;
+
+    //find By Location
+    public AirQualityDTO getAirQualityByLocation(String location){
+        AirQuality airQuality = airQualityRepository.findByLocation(location).
+                orElseThrow(() -> new RuntimeException("The requested air quality is not found"));
+        return converttoDTO(airQuality);
+    }
 
     //generate dummy data using the data generator class of DAta Generator package
     public List<AirQuality> generateAndSaveAirQualityData(Long numberOfRecords){
@@ -47,6 +56,22 @@ public class AirQualityServiceImpl implements AirQualityService {
         AirQuality appendedAirQuality = airQualityRepository.save(airQuality);
         return converttoDTO(appendedAirQuality);
     }
+
+    //update a record in air quality
+    public AirQuality updateAirQualityUsingId(Long Id, AirQuality airQualityUpdated){
+
+        AirQuality airQuality = airQualityRepository.findById(Id).
+                orElseThrow(()->new RuntimeException("The requested air quality is not found"));
+        airQuality.setLocation(airQualityUpdated.getLocation());
+        airQuality.setPm2_5(airQualityUpdated.getPm2_5());
+        airQuality.setPm10(airQualityUpdated.getPm10());
+        airQuality.setNo2(airQualityUpdated.getNo2());
+        airQuality.setO3(airQualityUpdated.getO3());
+        return airQualityRepository.save(airQuality);
+    }
+
+    //delete a record in air quality
+
     /*
     Helper Methods
      */

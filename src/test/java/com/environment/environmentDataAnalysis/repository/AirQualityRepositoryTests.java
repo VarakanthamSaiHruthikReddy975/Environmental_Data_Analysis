@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -123,5 +124,69 @@ public class AirQualityRepositoryTests {
             assertTrue(record.getNo2() >= 0 && record.getNo2() <= 100);
             assertTrue(record.getO3() >= 0 && record.getO3() <= 300);
         }
+    }
+
+    //Find by location
+
+    @Test
+    public void AirQualityRepository_FindByLocation_ReturnByLocation() {
+        AirQuality airQuality1 = AirQuality
+                .builder()
+                .location("TesterLocation1")
+                .pm2_5(18.0)
+                .pm10(20.82)
+                .no2(39.4)
+                .o3(52.9)
+                .build();
+
+
+        airQualityRepository.save(airQuality1);
+        AirQuality AirQualityRecordByLocation = airQualityRepository.findByLocation(airQuality1.getLocation()).get();
+
+        Assertions.assertThat(AirQualityRecordByLocation).isNotNull();
+    }
+
+    //update the air quality record by id
+    @Test
+    public void AirQualityRepository_UpdateById_ReturnAirQualityNotNull() {
+        AirQuality airQuality1 = AirQuality
+                .builder()
+                .location("TesterLocation1")
+                .pm2_5(18.0)
+                .pm10(20.82)
+                .no2(39.4)
+                .o3(52.9)
+                .build();
+
+
+        airQualityRepository.save(airQuality1);
+        AirQuality AirQualitySaved = airQualityRepository.findById(airQuality1.getId()).get();
+        AirQualitySaved.setLocation("TesterLocation192");
+        AirQualitySaved.setPm2_5(17.9);
+
+        AirQuality airQualityUpdated = airQualityRepository.save(AirQualitySaved);
+
+        Assertions.assertThat(airQualityUpdated.getLocation()).isNotNull();
+        Assertions.assertThat(airQualityUpdated.getPm2_5()).isNotNull();
+    }
+
+    @Test
+    public void AirQualityRepository_DeleteById_ReturnAirQualityIsEmpty() {
+        AirQuality airQuality1 = AirQuality
+                .builder()
+                .location("TesterLocation1")
+                .pm2_5(18.0)
+                .pm10(20.82)
+                .no2(39.4)
+                .o3(52.9)
+                .build();
+
+
+        airQualityRepository.save(airQuality1);
+
+        airQualityRepository.deleteById(airQuality1.getId());
+        Optional<AirQuality> airQualityReturn = airQualityRepository.findById(airQuality1.getId());
+
+        Assertions.assertThat(airQualityReturn).isEmpty();
     }
 }

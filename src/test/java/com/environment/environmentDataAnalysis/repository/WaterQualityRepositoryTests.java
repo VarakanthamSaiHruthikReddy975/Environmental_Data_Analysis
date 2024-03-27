@@ -124,5 +124,6 @@ public class WaterQualityRepositoryTests {
             assertTrue(record.getConductivity()>=0 && record.getConductivity()<=100);
             assertTrue(record.getTemperature()>=0 && record.getTemperature()<=35);
         }
+
     }
 }

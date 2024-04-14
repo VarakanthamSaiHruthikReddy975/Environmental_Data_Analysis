@@ -29,8 +29,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig{
     private final RSAKeyProperties keys;
 
-
-
     public SecurityConfig(RSAKeyProperties keys) {
         this.keys = keys;
     }

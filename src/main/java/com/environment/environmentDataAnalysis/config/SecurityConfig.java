@@ -60,12 +60,15 @@ public class SecurityConfig{
         http
                 .csrf(csrf->csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/auth/**").permitAll();
-                    auth.requestMatchers("/admin/**").hasRole("ADMIN");
-                    auth.requestMatchers("/user/**").hasAnyRole("ADMIN","USER");
-                    auth.anyRequest().authenticated();
+                    auth.requestMatchers("/auth/**")
+                            .permitAll();
+                    auth.requestMatchers("/api/weather/allRecords", "/api/air-quality/allRecords").permitAll();
+//                    auth.requestMatchers("/admin/**").hasRole("ADMIN");
+//                    auth.requestMatchers("/user/**").hasAnyRole("ADMIN","USER");
+//                    auth.anyRequest().authenticated();
                 });
-        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
+
+//        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
 
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

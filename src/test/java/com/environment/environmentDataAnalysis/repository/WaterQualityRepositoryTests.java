@@ -24,7 +24,7 @@ public class WaterQualityRepositoryTests {
     private final WaterQualityRepository waterQualityRepository;
 
     @Test
-    public void WaterQualityRepository_SaveRecord_ReturnSavedWAterQualityRecord(){
+    public void WaterQualityRepository_SaveRecord_ReturnSavedWaterQualityRecord(){
         WaterQuality waterQuality = WaterQuality
                 .builder()
                 .location("WaterQualityTesterLocation")
@@ -124,6 +124,5 @@ public class WaterQualityRepositoryTests {
             assertTrue(record.getConductivity()>=0 && record.getConductivity()<=100);
             assertTrue(record.getTemperature()>=0 && record.getTemperature()<=35);
         }
-
     }
 }

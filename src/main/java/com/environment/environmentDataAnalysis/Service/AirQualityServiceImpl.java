@@ -102,6 +102,4 @@ public class AirQualityServiceImpl implements AirQualityService {
         return airQuality;
     }
 
-
-
 }

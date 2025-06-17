@@ -32,14 +32,14 @@ public class AirQualityController {
     }
 
     //getting the air quality record by id
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<AirQualityDTO> getAirQualityById(@PathVariable Long id){
         AirQualityDTO airQualityDTO = airQualityService.getAirQualityById(id);
         return ResponseEntity.ok(airQualityDTO);
     }
 
     //find air quality by location
-    @GetMapping("/{location}")
+    @GetMapping("/location/{location}")
     public ResponseEntity<AirQualityDTO> getAirQualityByLocation(@PathVariable String location){
         AirQualityDTO airQualityDTO = airQualityService.getAirQualityByLocation(location);
         return ResponseEntity.ok(airQualityDTO);

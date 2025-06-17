@@ -28,6 +28,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(waterQualityNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException dataIntegrityViolationException, WebRequest webRequest){
         String message;
 

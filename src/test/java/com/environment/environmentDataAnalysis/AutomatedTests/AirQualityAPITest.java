@@ -5,11 +5,8 @@ import com.aventstack.extentreports.ExtentTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Listeners;
+import org.testng.annotations.*;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -84,5 +81,55 @@ public class AirQualityAPITest {
         test.info("Fetching air quality record by ID: " + insertedRecordId);
         test.info("Response Code: "+ res.getStatusCode());
         test.info(res.prettyPrint());
+    }
+
+    @Test(priority = 4)
+    public void testGetByLocation(){
+        Response res = RestAssured
+                .given()
+                .get("/location/Chicago");
+
+        test.info("Fetching air quality record by location: Chicago");
+        test.info("Response Code: "+res.getStatusCode());
+        test.info(res.prettyPrint());
+
+        if(res.getStatusCode() == 200) test.pass("Data fetched successfully for location");
+        else test.fail("Failed to fetch the requested data for the location: Chicago");
+    }
+
+    @Test(priority = 5, dependsOnMethods = "testAddAirQualityData")
+    public void testGetAllRecords(){
+        Response res = RestAssured.given()
+                .when()
+                .get("/allRecords");
+
+        test.info("All records fetched successfully");
+        test.info("Response Code: " + res.getStatusCode());
+        test.info(res.prettyPrint());
+    }
+
+    @Test(priority = 6, dependsOnMethods = "testAddAirQualityData")
+    public void testUpdateRecords(){
+        Map<String, Object> requestBody = Map.of(
+                "location", "New York",
+                "pm2_5", 30.0,
+                "pm10", 35.0,
+                "no2", 15.0,
+                "o3", 20.0
+        );
+
+        Response res = RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .body(requestBody)
+                .put("/"+insertedRecordId);
+        test.info("Updating air quality record with ID: "+insertedRecordId);
+        test.info("Response Code: "+res.getStatusCode());
+        test.info(res.prettyPrint());
+    }
+
+    @AfterSuite
+    void tearDownReport(){
+        extent.flush();
     }
 }
